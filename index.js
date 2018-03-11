@@ -1,6 +1,5 @@
 const Discord = require("discord.js");
 const client = new Discord.Client();
-const token = 'NDIyMTYxODQ2ODE3MjU5NTMz.DYXwYw.BwlXotStX--56gu7NkFXLb_7RpM';
 const prefix = 'lil';
 var nickname = 'nicetrylilone LOL';
 
