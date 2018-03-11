@@ -1,0 +1,15 @@
+{
+  "name": "jasebot",
+  "version": "1.0.0",
+  "description": "bot to mess with jase",
+  "main": "index.js",
+  "dependencies": {
+    "discord.js": "^11.3.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "Ali Baig",
+  "license": "ISC"
+}
