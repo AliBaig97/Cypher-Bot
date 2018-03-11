@@ -34,8 +34,7 @@ client.on('message', msg => {
 
 client.on('guildMemberUpdate', (oldMember, newMember) => {
    console.log(oldMember.nickname);
-   if(newMember.id === '380140612025974795') 
-    newMember.setNickname(nickname).then().catch(console.error);
+   if(newMember.id === '380140612025974795') newMember.setNickname(nickname).then().catch(console.error);
 });
 
 client.login(process.env.BOT_TOKEN);
