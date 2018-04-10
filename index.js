@@ -1,39 +1,92 @@
 const Discord = require("discord.js");
 const client = new Discord.Client();
-const prefix = 'lil';
-var nickname = 'nicetrylilone LOL';
+const fs = require("fs");
 
-client.on('ready', () => {
-  console.log(`Logged in as ${client.user.tag}!`);
-  client.user.setActivity('');
+const config = require("./config.json");
+
+client.classList = {
+    rogue: {
+        name: "Rogue",
+        roleID: "433046029705936916"
+    },
+    shaman: {
+        name: "Paladin",
+        roleID: "433046088895692820"
+    },
+    priest: {
+        name: "Priest",
+        roleID: "433046500688527361"
+    },
+    warrior: {
+        name: "Warrior",
+        roleID: "433046604342099968"
+    },
+    druid: {
+        name: "Druid",
+        roleID: "433046731253481473"
+    },
+    warlock: {
+        name: "Warlock",
+        roleID: "433046820390830080"
+    },
+    mage: {
+        name: "Mage",
+        roleID: "433046900065959939"
+    },
+    hunter: {
+        name: "Hunter",
+        roleID: "433057461801451520"
+    }
+};
+
+// client.classList = {
+//   rogue: guild.roles.get("430542391427203102"),
+//   shaman: guild.roles.get("430542483122946050"),
+//   priest: guild.roles.get("430542578480316416"),
+//   warrior: guild.roles.get("430542533077106699"),
+//   druid: guild.roles.get("430542813760061451"),
+//   mage: guild.roles.get("430542840053891092"),
+//   warlock: guild.roles.get("430542699888771084")
+// };
+
+// console.log(client.classList.rogue);
+
+//Read the events folder
+fs.readdir("./events/", (err, files) => {
+    if(err) return console.error(err);
+    
+    files.forEach(file => {
+        //Slick way to get the event's name and function name
+        let eventFunction = require(`./events/${file}`);
+        let eventName = file.split(".")[0];
+      
+        //call the event and and put in params as needed
+        client.on(eventName, (...args) => {
+            eventFunction.run(client, ...args); //need ..args for events like 'voiceStatusUpdate'
+        });
+    });
 });
 
-client.on('message', msg => {
-    if (msg.author.bot) return;
-    if (!msg.content.startsWith(prefix)) return;
+client.on("message", message => {
+    if(message.author.bot) return;
+    if(message.content.indexOf(config.prefix) !== 0) return;
     
-    let command = msg.content.toLowerCase().split(" ")[0];
-    let args = msg.content.split(" ").slice(1);
-    var jase = msg.guild.members.get('380140612025974795');
+    const args = message.content.slice(config.prefix.length).trim().split(/ +/g);
+    const command = args.shift().toLowerCase();
     
-    if(msg.channel.id === '422162527426969606'){
-        if(args[0] == 'change'){
-            nickname = '';
-            for(var i = 1; i < args.length; i++){
-                console.log(args[i]);
-                nickname += args[i] + ' ';
-            }
-            jase.setNickname(nickname);
-        }
+    try {
+        let path = `./commands/${command}.js`;
         
-        if(args[0] == 'help'){
-            console.log(msg.channel.id);    
+        //Checks to see if the command exists
+        if(fs.existsSync(path)){
+            let commandFile = require(path);
+            commandFile.run(client, message, args);
+        } else {
+            console.log(`The command ${command} does not exist`);
         }
+    } catch (err) {
+        console.log(err);
     }
 });
 
-client.on('guildMemberUpdate', (oldMember, newMember) => {
-   if(newMember.id === '380140612025974795') newMember.setNickname(nickname).then().catch(console.error);
-});
-
-client.login(process.env.BOT_TOKEN);
+client.login(config.token);
