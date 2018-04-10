@@ -1,1 +1,1 @@
-Messing with jase!
+Discord Bot for Vanilla WoW Guilds
