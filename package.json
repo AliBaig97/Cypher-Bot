@@ -1,15 +1,16 @@
 {
-  "name": "jasebot",
+  "name": "msgbot",
   "version": "1.0.0",
-  "description": "bot to mess with jase",
+  "description": "msg bot for discord",
   "main": "index.js",
-  "dependencies": {
-    "discord.js": "^11.3.2"
-  },
-  "devDependencies": {},
   "scripts": {
     "start": "node index.js"
   },
-  "author": "Ali Baig",
-  "license": "ISC"
+  "author": "ali",
+  "license": "ISC",
+  "dependencies": {
+    "discord.js": "^11.3.2",
+    "json-stringify-safe": "^5.0.1",
+    "request": "^2.85.0"
+  }
 }
