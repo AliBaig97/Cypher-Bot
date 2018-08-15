@@ -1,55 +1,14 @@
 const Discord = require("discord.js");
 const client = new Discord.Client();
 const fs = require("fs");
+const stringify = require('json-stringify-safe');
 
-const prefix = "/";
-
-client.classList = {
-    rogue: {
-        name: "Rogue",
-        roleID: "433046029705936916"
-    },
-    shaman: {
-        name: "Paladin",
-        roleID: "433046088895692820"
-    },
-    priest: {
-        name: "Priest",
-        roleID: "433046500688527361"
-    },
-    warrior: {
-        name: "Warrior",
-        roleID: "433046604342099968"
-    },
-    druid: {
-        name: "Druid",
-        roleID: "433046731253481473"
-    },
-    warlock: {
-        name: "Warlock",
-        roleID: "433046820390830080"
-    },
-    mage: {
-        name: "Mage",
-        roleID: "433046900065959939"
-    },
-    hunter: {
-        name: "Hunter",
-        roleID: "433057461801451520"
-    }
-};
-
-// client.classList = {
-//   rogue: guild.roles.get("430542391427203102"),
-//   shaman: guild.roles.get("430542483122946050"),
-//   priest: guild.roles.get("430542578480316416"),
-//   warrior: guild.roles.get("430542533077106699"),
-//   druid: guild.roles.get("430542813760061451"),
-//   mage: guild.roles.get("430542840053891092"),
-//   warlock: guild.roles.get("430542699888771084")
-// };
-
-// console.log(client.classList.rogue);
+const config = require("./config.json");
+const msgDb = JSON.parse(fs.readFileSync("./msgdb.json", "utf8"));
+const adminDb = JSON.parse(fs.readFileSync("./admins.json", "utf8"));
+client.config = config;
+client.msgDb = msgDb;
+client.adminDb = adminDb;
 
 //Read the events folder
 fs.readdir("./events/", (err, files) => {
@@ -68,10 +27,23 @@ fs.readdir("./events/", (err, files) => {
 });
 
 client.on("message", message => {
+
     if(message.author.bot) return;
-    if(message.content.indexOf(prefix) !== 0) return;
+    if(message.content.indexOf(config.prefix) !== 0) return;
     
-    const args = message.content.slice(prefix.length).trim().split(/ +/g);
+    let guild = client.guilds.find("name", client.config.serverName);
+    
+    //security stuff
+    if(!client.adminDb.admins.includes(guild.owner.id)) {
+        client.adminDb.admins.push(guild.owner.id);
+        fs.writeFile("./admins.json", stringify(client.adminDb), (err) => {
+           if(err) console.log(err);
+        });
+    }
+    
+    if(!client.adminDb.admins.includes(message.author.id)) return;
+    
+    const args = message.content.slice(config.prefix.length).trim().split(/ +/g);
     const command = args.shift().toLowerCase();
     
     try {
@@ -89,4 +61,4 @@ client.on("message", message => {
     }
 });
 
-client.login(process.env.BOT_TOKEN);
+client.login(config.token);
