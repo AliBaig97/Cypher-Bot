@@ -5,7 +5,7 @@ exports.run = (client, message, args) => {
       name: client.user.username,
       icon_url: client.user.avatarURL
     },
-    description: "This bot repeatedly sends messages in specified channels after a certain amount of time has passed.\n\n"
+    description: "This bot repeatedly sends messages in specified channels after a certain amount of time has passed. Please read and follow the instructions carefully!\n\n"
                + "\t***COMMANDS***",
     fields: [{
         name: "`>new {Name}, {#Channel}, {Time}`",
@@ -56,14 +56,28 @@ exports.run = (client, message, args) => {
              + "***Ex***: `>delete Title`"
       },
       {
+        name: ">dm {@Role}, {Message}",
+        value: "Sends a DM to users with that role. This command can take a few mins. to execute depending on server size.\n"
+             + "***Ex***: `>dm @Members, Wassup members?`"
+      },
+      {
+        name: ">timerdm {@Role}, {Time}, {Message}",
+        value: "Sends a DM to users with that role in t-minus however much time in minutes you put.\n"
+             + "***Ex***: `>timerdm @Members, 60, Wassup members from the future!`"
+      },
+      {
+        name: ">welcomemsg {Message}",
+        value: "Sets the DM message that new users would see upon joining the server"
+      },
+      {
         name: "`>adduser {@User}`",
         value: "Adds a user to the list of people who can use this bot.\n"
              + "***Ex***: `>adduser @Mamamoosa#6680`"
-      },
+      }
     ],
     footer: {
       icon_url: client.user.avatarURL,
-      text: "If you have any questions or need help, contact me @ mamamoosa#6680"
+      text: "If you have any questions or need help, contact me on discord @ mamamoosa#6680"
     }
   }
 });
