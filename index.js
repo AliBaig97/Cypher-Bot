@@ -6,9 +6,11 @@ const stringify = require('json-stringify-safe');
 const config = require("./config.json");
 const msgDb = JSON.parse(fs.readFileSync("./msgdb.json", "utf8"));
 const adminDb = JSON.parse(fs.readFileSync("./admins.json", "utf8"));
+const welcomeDb = JSON.parse(fs.readFileSync("./welmsg.json", "utf8"));
 client.config = config;
 client.msgDb = msgDb;
 client.adminDb = adminDb;
+client.welcomeDb = welcomeDb;
 
 //Read the events folder
 fs.readdir("./events/", (err, files) => {
@@ -61,4 +63,4 @@ client.on("message", message => {
     }
 });
 
-client.login(process.env.BOT_TOKEN);
+client.login(config.token);
