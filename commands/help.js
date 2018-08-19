@@ -63,7 +63,7 @@ exports.run = (client, message, args) => {
     ],
     footer: {
       icon_url: client.user.avatarURL,
-      text: "If you have any questions or need help, contact me on discord @ mamamoosa#6680"
+      text: "If you have any questions or need help, contact me @ mamamoosa#6680"
     }
   }
 });
