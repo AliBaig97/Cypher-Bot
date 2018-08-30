@@ -1,3 +1,3 @@
 exports.run = (client, member) => {
-    member.user.sendMessage(client.welcomeDb.welcomeMsg);
+    //member.user.sendMessage(client.welcomeDb.welcomeMsg);
 }
