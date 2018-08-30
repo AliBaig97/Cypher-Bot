@@ -7,7 +7,7 @@ exports.run = (client, message, args) => {
     const role = guild.roles.find(r => r.name === '[Dont Ping Me]');
     guild.members.forEach((member) => {
         if(member.roles.find("id", message.mentions.roles.first().id)){
-            //if(!member.roles.find("id", role.id)) //if they dont have dont ping me role
+            if(!member.roles.find("id", role.id)) //if they dont have dont ping me role
                 member.user.send(body);
         }
     })
