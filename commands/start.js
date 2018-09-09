@@ -41,7 +41,7 @@ exports.run = (client, message, args) => {
             var temp = client.cypherList.shift();
             client.cypherList.push(temp);
             client.time = 45;
-            message.channel.send("***" + client.cypherList[0].name + "'s turn***\n" + "`" + client.time + " seconds remaining...`");
+            message.channel.send("***" + client.cypherList[0].name + "'s turn!***\n" + "`" + client.time + " seconds remaining...`");
         } else {
             message.channel.send("`" + client.time + " seconds remaining...`");
         }
