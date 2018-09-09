@@ -7,35 +7,35 @@ exports.run = (client, message, args) => {
     },
     description: "Everyone has 45 seconds to spit. Add yourself to the queue and start it up!",
     fields: [{
-        name: "~>add",
+        name: "&add",
         value: "Adds you to the Cypher Queue."
       },
       {
-        name: "~>remove",
+        name: "&remove",
         value: "Removes you from the Cypher Queue."
       },
       {
-        name: "~>remove {user}",
+        name: "&remove {user}",
         value: "Removes the user from the Cypher Queue."
       },
       {
-        name: "~>list",
+        name: "&list",
         value: "Shows a list of people in the Cypher Queue."
       },
       {
-        name: "~>start",
+        name: "&start",
         value: "Starts the cypher. Everyone has 45 seconds to spit."
       },
       {
-        name: "~>pause",
+        name: "&pause",
         value: "Pauses the Cypher."
       },
       {
-        name: "~>resume",
+        name: "&resume",
         value: "Resumes the Cypher."
       },
       {
-        name: "~>stop",
+        name: "&stop",
         value: "Stops and clears the cypher.. Only Staff-Ping role can use this command."
       }
     ],
