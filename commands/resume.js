@@ -14,7 +14,7 @@ exports.run = (client, message, args) => {
     
     if(client.cypherList[0])
     for(var i = 0; i < client.cypherList.length; i++) {
-        listStr += `${i+1}.  ${client.cypherList[i]}\n`;
+        listStr += `[${i+1}] ${client.cypherList[i].name}\n`;
     }
     
     message.channel.send({embed: {
@@ -26,7 +26,7 @@ exports.run = (client, message, args) => {
         description: listStr
     }});
     
-    message.channel.send("`" + client.cypherList[0] + "'s turn!`\n" + "`" + client.time + " seconds` remaining!");
+    message.channel.send("***" + client.cypherList[0].name + "'s turn!***\n" + "`" + client.time + " seconds` remaining...`");
     
     client.interval = setInterval( () => {
         
@@ -34,7 +34,7 @@ exports.run = (client, message, args) => {
             client.time -= 5;
         
         if(client.time === 5 && client.cypherList[1] !== undefined){
-            message.channel.send(client.cypherList[1] + ", get ready for your turn!");
+            message.channel.send("<@" + client.cypherList[1].name + ">***, get ready for your turn!***");
         }
         
         // Next persons turn
@@ -42,9 +42,9 @@ exports.run = (client, message, args) => {
             let temp = client.cypherList.shift();
             client.cypherList.push(temp);
             client.time = 45;
-            message.channel.send("`" + client.cypherList[0] + "'s turn`\n" + "`" + client.time + " seconds` remaining!");
+            message.channel.send("***" + client.cypherList[0].name + "'s turn***\n" + "`" + client.time + " seconds remaining...`");
         } else {
-            message.channel.send("`" + client.time + " seconds` remaining!");
+            message.channel.send("`" + client.time + " seconds remaining...`");
         }
         
     }, 5000)
