@@ -29,9 +29,12 @@ exports.run = (client, message, args) => {
     message.channel.send("`" + client.cypherList[0] + "'s turn!`\n" + "`" + client.time + " seconds` remaining!");
     
     client.interval = setInterval( () => {
-        client.time -= 15;
+        
+        if(client.time != 0)
+            client.time -= 15;
+        
         // Next persons turn
-        if(client.time == 0){
+        if(client.time == 0 || client.time < 0){
             let temp = client.cypherList.shift();
             client.cypherList.push(temp);
             client.time = 45;
