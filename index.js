@@ -37,6 +37,10 @@ client.on("message", message => {
         return;
     }
     
+    if(!message.member.voiceChannelID === "469729898433478677"){
+        return message.channel.send("You must be in the <@469729898433478677> room!");
+    }
+    
     const args = message.content.slice(config.prefix.length).trim().split(/ +/g);
     const command = args.shift().toLowerCase();
     
