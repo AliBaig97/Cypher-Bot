@@ -33,6 +33,10 @@ exports.run = (client, message, args) => {
         if(client.time != 0)
             client.time -= 5;
         
+        if(client.time == 5 && client.cypherList[1]){
+            message.channel.send("@" + client.cypherList[1] + ", get ready for your turn!");
+        }
+        
         // Next persons turn
         if(client.time == 0 || client.time < 0){
             let temp = client.cypherList.shift();
