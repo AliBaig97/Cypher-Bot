@@ -3,7 +3,7 @@ exports.run = (client, message, args) => {
     
     if(client.cypherList[0])
     for(var i = 0; i < client.cypherList.length; i++) {
-        listStr += `${i+1}.  ${client.cypherList[i]}\n`;
+        listStr += `[${i+1}]  ${client.cypherList[i].name}\n`;
     }
     
     message.channel.send({embed: {
