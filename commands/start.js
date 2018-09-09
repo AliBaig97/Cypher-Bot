@@ -33,7 +33,7 @@ exports.run = (client, message, args) => {
             client.time -= 15;
             
         // Next persons turn
-        if(client.time == 0){
+        if(client.time == 0 || client.time < 0){
             var temp = client.cypherList.shift();
             client.cypherList.push(temp);
             client.time = 45;
