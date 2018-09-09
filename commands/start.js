@@ -33,7 +33,7 @@ exports.run = (client, message, args) => {
             client.time -= 5;
         
         if(client.time == 5 && client.cypherList[1] !== undefined){
-            message.channel.send("<@" + client.cypherList[1].id + ">***, get ready for your turn!***");
+            message.channel.send("<@" + client.cypherList[1].id + ">***, get ready to go!***");
         }
             
         // Next persons turn
