@@ -37,7 +37,7 @@ client.on("message", message => {
         return;
     }
     
-    if(!message.member.voiceChannelID === "469729898433478677"){
+    if(message.member.voiceChannelID !== "469729898433478677"){
         return message.channel.send("You must be in the <@469729898433478677> room!");
     }
     
