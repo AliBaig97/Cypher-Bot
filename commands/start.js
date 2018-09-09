@@ -30,7 +30,7 @@ exports.run = (client, message, args) => {
     client.interval = setInterval( () => {
         
         if(client.time != 0)
-            client.time -= 15;
+            client.time -= 5;
             
         // Next persons turn
         if(client.time == 0 || client.time < 0){
@@ -42,6 +42,6 @@ exports.run = (client, message, args) => {
             message.channel.send("`" + client.time + " seconds` remaining!");
         }
         
-    }, 15000)
+    }, 5000)
     
 }
