@@ -1,16 +1,17 @@
 const Discord = require("discord.js");
 const client = new Discord.Client();
 const fs = require("fs");
-const stringify = require('json-stringify-safe');
 
 const config = require("./config.json");
-const msgDb = JSON.parse(fs.readFileSync("./msgdb.json", "utf8"));
-const adminDb = JSON.parse(fs.readFileSync("./admins.json", "utf8"));
-const welcomeDb = JSON.parse(fs.readFileSync("./welmsg.json", "utf8"));
-client.config = config;
-client.msgDb = msgDb;
-client.adminDb = adminDb;
-client.welcomeDb = welcomeDb;
+
+//let words = JSON.parse(fs.readFileSync("./words.json", "utf8"));
+
+//Example 2 for how we can group objects and globally use them in other files GG
+client.cypherList = [];
+client.interval;
+client.isRunning = false;
+client.position = 0;
+client.time = 45;
 
 //Read the events folder
 fs.readdir("./events/", (err, files) => {
@@ -29,21 +30,12 @@ fs.readdir("./events/", (err, files) => {
 });
 
 client.on("message", message => {
-
     if(message.author.bot) return;
     if(message.content.indexOf(config.prefix) !== 0) return;
     
-    let guild = client.guilds.find("name", client.config.serverName);
-    
-    //security stuff
-    if(!client.adminDb.admins.includes(guild.owner.id)) {
-        client.adminDb.admins.push(guild.owner.id);
-        fs.writeFile("./admins.json", stringify(client.adminDb), (err) => {
-           if(err) console.log(err);
-        });
+    if(message.channel.id !== "470683626862936085"){
+        return;
     }
-    
-    if(!client.adminDb.admins.includes(message.author.id)) return;
     
     const args = message.content.slice(config.prefix.length).trim().split(/ +/g);
     const command = args.shift().toLowerCase();
@@ -63,4 +55,4 @@ client.on("message", message => {
     }
 });
 
-client.login(process.env.BOT_TOKEN);
+client.login(config.token);
