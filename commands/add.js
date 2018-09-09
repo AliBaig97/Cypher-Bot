@@ -1,24 +1,29 @@
 exports.run = (client, message, args) => {
-    var name = message.author.username;
+    var user;
+    var id = message.author.id;
     
     
     for(var j = 0; j < client.cypherList.length; j++){
-        if(client.cypherList[j] === name){
+        if(client.cypherList[j].id === id){
             return;
         }
     }
     
     if(!args[0]) {
-        client.cypherList.push(name);
+        user = {
+            name: message.author.username,
+            id: message.author.id
+        }
+        client.cypherList.push(user);
     }
     
-    message.channel.send("`Added " + name + " to the cypher...`\n`Cypher List`");
+    message.channel.send("`Added " + user.name + " to the cypher...`\n`Cypher List`");
     
     let listStr = "";
     
     if(client.cypherList[0])
     for(var i = 0; i < client.cypherList.length; i++) {
-        listStr += `${i+1}.  ${client.cypherList[i]}\n`;
+        listStr += `[${i+1}]  ${client.cypherList[i].name}\n`;
     }
     
     message.channel.send({embed: {
