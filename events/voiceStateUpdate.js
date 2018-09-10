@@ -28,6 +28,12 @@ exports.run = (client, oldMember, newMember) => {
         client.time = 0;
         client.isRunning = false;
     }
+      
+    if(!client.cypherList[1]){
+       clearInterval(client.interval);
+       client.time = 0;
+       client.isRunning = false; 
+    }
 
   }
 }
